@@ -95,3 +95,4 @@ public class Estoque {
     
     public Estoque(){};
 }
+/* teste de commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */
