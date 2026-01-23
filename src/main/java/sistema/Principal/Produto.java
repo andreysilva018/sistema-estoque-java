@@ -7,7 +7,7 @@ public class Produto {
     private double precoVenda;
     private double quantidade;
     private double quantidadeComprada;
-    private double quantidadeVendida;
+    private double quantidadeRetirada;
     private boolean estoqueSuficiente;
 
     public void setId(int id){
@@ -45,11 +45,11 @@ public class Produto {
         return quantidadeComprada;
     }
 
-    public void setQuantidadeVendida(double quantidadeVendida){
-        this.quantidadeVendida = quantidadeVendida;
+    public void setQuantidadeRetirada(double quantidadeRetirada){
+        this.quantidadeRetirada = quantidadeRetirada;
     }
-    public double getQuantidadeVendida(){
-        return quantidadeVendida;
+    public double getQuantidadeRetirada(){
+        return quantidadeRetirada;
     }
 
     public void setQuantidade(double quantidade){
@@ -71,12 +71,9 @@ public class Produto {
         this.name = name;
     }
 
-    public Produto(double precoCompra, double precoVenda, double quantidadeComprada,double quantidade){
-        this.precoCompra = precoCompra;
-        this.precoVenda = precoVenda;
-        this.quantidadeComprada = quantidadeComprada;
-        this.quantidade = quantidade;
-    }
+    /* Construtor utilizado para dar entrada no produto */
+
+    /* Construtor utilizado para dar entrada no produto */
 
     public Produto(){}
 }

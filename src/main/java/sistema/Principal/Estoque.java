@@ -40,8 +40,9 @@ public class Estoque {
             System.out.println("-----     ----- ");
             System.out.println("ID: " + p.getId());
             System.out.println("Nome: " + p.getName());
-            System.out.println("Preço: " + p.getPrecoVenda());
             System.out.println("Quantidade: " + p.getQuantidade());
+            System.out.println("Preço de compra: " + p.getPrecoCompra());
+            System.out.println("Preço de venda: " + p.getPrecoVenda());
             System.out.println("-----     ----- ");
         }
         return null;
@@ -49,27 +50,32 @@ public class Estoque {
 
      public Produto Entrada(int codigo){
         Scanner sc = new Scanner(System.in);
+        boolean continuar = true;
         for(Produto p : produtos){
             if(p.getId() == codigo){
-                System.out.print("Descrição do produto: " + p.getName() + "\n");
+                while(continuar){
+                    System.out.print("Descrição do produto: " + p.getName() + "\n");
 
-                System.out.println("\nEntre com o preço de compra: ");
-                double precoCompra = sc.nextDouble();
+                    System.out.println("\nEntre com o preço de compra: ");
+                    double precoCompra = sc.nextDouble();
 
-                double venda = precoCompra * 2;
+                    System.out.println("Digite a quantidade comprada: ");
+                    double quantidadeComprada = sc.nextDouble();
+                    if(quantidadeComprada > 0 ){                    
+                        double quantidade = p.getQuantidade() + quantidadeComprada;
 
-                System.out.println("Digite a quantidade comprada: ");
-                double quantidadeComprada = sc.nextDouble();
+                        p.setPrecoCompra(precoCompra);
+                        p.setQuantidadeComprada(quantidadeComprada);
+                        p.setQuantidade(quantidade);
 
-                double quantidade = p.getQuantidade() + quantidadeComprada;
-
-                p.setPrecoCompra(precoCompra);
-                p.setQuantidadeComprada(quantidadeComprada);
-                p.setQuantidade(quantidade);
-                p.setPrecoVenda(venda);
-
-                System.out.println("Entrada inserido no estoque");
-                return p;
+                        System.out.println("Entrada inserida no estoque");
+                        continuar = false;
+                        return p;
+                    } else{
+                        System.out.println("Quantidade incorreta");
+                        new Erros();
+                    }
+                }
             }
         }
         System.out.println("Produto não encontrado");
@@ -81,11 +87,24 @@ public class Estoque {
         for(Produto p : produtos){
             if (p.getId() == codigo) {
                 System.out.print("Descrição do produto: " + p.getName() + "\n");
-                System.out.println("\nValor de venda: " + p.getPrecoVenda());
 
+                System.out.println("Digite a porcentagem de lucro (ex: 0,5 | 1,5 | 10)");
+                double porcentagem = sc.nextDouble();
+                double proprocao = porcentagem / p.getPrecoCompra();
+                double lucro = p.getPrecoCompra() * proprocao;
+                double venda = p.getPrecoCompra() + lucro;
                 System.out.println("\nEntre com a quantidade que deseja retirar: ");
-                double quantidadeVendida = sc.nextDouble();
+                double quantidadeRetirada = sc.nextDouble();
+                if (quantidadeRetirada > 0) {
+                    double quantidade = p.getQuantidade() - quantidadeRetirada;
 
+                    p.setQuantidadeRetirada(quantidadeRetirada);
+                    p.setQuantidade(quantidade);
+                    p.setPrecoVenda(venda);
+                }else{
+                    System.out.println("Quantidade incorreta");
+                    new Erros();
+                }
                 System.out.println("Deu certo");
             }
         }
@@ -95,4 +114,5 @@ public class Estoque {
     
     public Estoque(){};
 }
-/* teste de commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */
+/* teste de commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 
+double quantidadeVendida = sc.nextDouble();*/
