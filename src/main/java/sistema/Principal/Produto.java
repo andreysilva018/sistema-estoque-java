@@ -1,6 +1,7 @@
 package sistema.Principal;
 
 public class Produto {
+
     private int id;
     private String name;
     private double precoCompra;
@@ -8,72 +9,77 @@ public class Produto {
     private double quantidade;
     private double quantidadeComprada;
     private double quantidadeRetirada;
-    private boolean estoqueSuficiente;
+    private boolean situacao;
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
-    public void setPrecoCompra(double precoCompra){
+    public void setPrecoCompra(double precoCompra) {
         this.precoCompra = precoCompra;
     }
-    public double getPrecoCompra(){
+
+    public double getPrecoCompra() {
         return precoCompra;
     }
 
-    public void setPrecoVenda(double precoVenda){
+    public void setPrecoVenda(double precoVenda) {
         this.precoVenda = precoVenda;
     }
-    public double getPrecoVenda(){
+
+    public double getPrecoVenda() {
         return precoVenda;
     }
 
-    public void setQuantidadeComprada(double quantidadeComprada){
+    public void setQuantidadeComprada(double quantidadeComprada) {
         this.quantidadeComprada = quantidadeComprada;
     }
-    public double getQuantidadeComprada(){
+
+    public double getQuantidadeComprada() {
         return quantidadeComprada;
     }
 
-    public void setQuantidadeRetirada(double quantidadeRetirada){
+    public void setQuantidadeRetirada(double quantidadeRetirada) {
         this.quantidadeRetirada = quantidadeRetirada;
     }
-    public double getQuantidadeRetirada(){
+
+    public double getQuantidadeRetirada() {
         return quantidadeRetirada;
     }
 
-    public void setQuantidade(double quantidade){
+    public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
-    public double getQuantidade(){
+
+    public double getQuantidade() {
         return quantidade;
     }
-    
-    public void setEstoqueSuficiente(boolean estoqueSuficiente){
-        this.estoqueSuficiente = estoqueSuficiente;
-    }
-    public boolean getEstoqueSuficiente(){
-        return estoqueSuficiente;
+
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
     }
 
-    public Produto(int id, String name){
+    public boolean getSituacao() {
+        return situacao;
+    }
+
+    public Produto(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    /* Construtor utilizado para dar entrada no produto */
-
-    /* Construtor utilizado para dar entrada no produto */
-
-    public Produto(){}
+    public Produto() {
+    }
 }

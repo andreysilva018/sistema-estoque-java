@@ -7,7 +7,7 @@ public class Estoque {
 
     private ArrayList<Produto> produtos = new ArrayList<>();
 
-    public void CadastrarProduto(Scanner sc){
+    public void CadastrarProduto(Scanner sc) {
         System.out.println("Vamos realizar a entrada do produto \n");
         System.out.println("Digite o codigo do produto: ");
         int id = sc.nextInt();
@@ -19,10 +19,10 @@ public class Estoque {
         System.out.println("Produto cadastrado");
     }
 
-     public Produto buscarProduto(int codigo){
-        
-        for(Produto p : produtos){
-            if(p.getId() == codigo){
+    public Produto buscarProduto(int codigo) {
+
+        for (Produto p : produtos) {
+            if (p.getId() == codigo) {
                 System.out.println("ID: " + p.getId());
                 System.out.println("Nome: " + p.getName());
                 System.out.println("Preço: " + p.getPrecoCompra());
@@ -32,11 +32,11 @@ public class Estoque {
         }
 
         return null;
-     }
+    }
 
-     public Produto ListaProdutos(){
+    public Produto ListaProdutos() {
 
-        for(Produto p : produtos){
+        for (Produto p : produtos) {
             System.out.println("-----     ----- ");
             System.out.println("ID: " + p.getId());
             System.out.println("Nome: " + p.getName());
@@ -46,14 +46,14 @@ public class Estoque {
             System.out.println("-----     ----- ");
         }
         return null;
-     }
+    }
 
-     public Produto Entrada(int codigo){
+    public Produto Entrada(int codigo) {
         Scanner sc = new Scanner(System.in);
         boolean continuar = true;
-        for(Produto p : produtos){
-            if(p.getId() == codigo){
-                while(continuar){
+        for (Produto p : produtos) {
+            if (p.getId() == codigo) {
+                while (continuar) {
                     System.out.print("Descrição do produto: " + p.getName() + "\n");
 
                     System.out.println("\nEntre com o preço de compra: ");
@@ -61,7 +61,7 @@ public class Estoque {
 
                     System.out.println("Digite a quantidade comprada: ");
                     double quantidadeComprada = sc.nextDouble();
-                    if(quantidadeComprada > 0 ){                    
+                    if (quantidadeComprada > 0) {
                         double quantidade = p.getQuantidade() + quantidadeComprada;
 
                         p.setPrecoCompra(precoCompra);
@@ -71,7 +71,7 @@ public class Estoque {
                         System.out.println("Entrada inserida no estoque");
                         continuar = false;
                         return p;
-                    } else{
+                    } else {
                         System.out.println("Quantidade incorreta");
                         new Erros();
                     }
@@ -81,10 +81,10 @@ public class Estoque {
         System.out.println("Produto não encontrado");
         return null;
     }
-    
-    public Produto Saida(int codigo){
+
+    public Produto Saida(int codigo) {
         Scanner sc = new Scanner(System.in);
-        for(Produto p : produtos){
+        for (Produto p : produtos) {
             if (p.getId() == codigo) {
                 System.out.print("Descrição do produto: " + p.getName() + "\n");
 
@@ -101,7 +101,7 @@ public class Estoque {
                     p.setQuantidadeRetirada(quantidadeRetirada);
                     p.setQuantidade(quantidade);
                     p.setPrecoVenda(venda);
-                }else{
+                } else {
                     System.out.println("Quantidade incorreta");
                     new Erros();
                 }
@@ -111,8 +111,27 @@ public class Estoque {
 
         return null;
     }
-    
-    public Estoque(){};
+
+    public Produto Situacao(int codigo) {
+        Scanner sc = new Scanner(System.in);
+        for (Produto p : produtos) {
+            if (p.getId() == codigo) {
+                if (p.getQuantidade() <= 0) {
+                    System.out.println("Estoque vazio");
+                    p.setSituacao(false);
+                    return p;
+                } else {
+                    System.out.println("Estoque cheio");
+                    p.setSituacao(true);
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Estoque() {
+    }
 }
 /* teste de commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 
 double quantidadeVendida = sc.nextDouble();*/
