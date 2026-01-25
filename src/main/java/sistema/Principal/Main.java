@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
-        //boolean estSuf = false;
         int codigo;
         boolean continuar = true;
         
@@ -23,7 +22,6 @@ public class Main {
 
             switch (sc.nextInt()) {
                 case 1:
-                    System.out.println("Deuc erto");
                      estoque.ListaProdutos();
                     break;
                 case 2:

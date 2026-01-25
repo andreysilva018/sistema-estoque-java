@@ -23,11 +23,27 @@ public class Estoque {
 
         for (Produto p : produtos) {
             if (p.getId() == codigo) {
+                System.out.println("-----     ----- ");
                 System.out.println("ID: " + p.getId());
                 System.out.println("Nome: " + p.getName());
-                System.out.println("Preço: " + p.getPrecoCompra());
                 System.out.println("Quantidade: " + p.getQuantidade());
+                ConferirSituacao(p.getId());
+                if (p.getSituacao() == true) {
+                    System.out.println("Situação: Ativado");
+                }else{
+                    System.out.println("Situação: Inativado");
+                }
+                System.out.println("Preço de compra: " + p.getPrecoCompra());
+                if (p.getPrecoCompra() == 0) {
+                    System.out.println("Preço de venda: " + p.getPrecoVenda());
+                } else{
+                    CalcularPrecoVenda(p.getId());
+                    System.out.println("Preço de venda: " + p.getPrecoVenda());
+                }
                 return p;
+            }else{
+                System.out.println("Produto não encontrado");
+                new Erros().SemErro();
             }
         }
 
@@ -41,8 +57,19 @@ public class Estoque {
             System.out.println("ID: " + p.getId());
             System.out.println("Nome: " + p.getName());
             System.out.println("Quantidade: " + p.getQuantidade());
+            ConferirSituacao(p.getId());
+            if (p.getSituacao() == true) {
+                System.out.println("Situação: Ativado");
+            }else{
+                System.out.println("Situação: Inativado");
+            }
             System.out.println("Preço de compra: " + p.getPrecoCompra());
-            System.out.println("Preço de venda: " + p.getPrecoVenda());
+            if (p.getPrecoCompra() == 0) {
+                System.out.println("Preço de venda: " + p.getPrecoVenda());
+            } else{
+                CalcularPrecoVenda(p.getId());
+                System.out.println("Preço de venda: " + p.getPrecoVenda());
+            }
             System.out.println("-----     ----- ");
         }
         return null;
@@ -79,6 +106,7 @@ public class Estoque {
             }
         }
         System.out.println("Produto não encontrado");
+        new Erros().SemErro();
         return null;
     }
 
@@ -87,32 +115,40 @@ public class Estoque {
         for (Produto p : produtos) {
             if (p.getId() == codigo) {
                 System.out.print("Descrição do produto: " + p.getName() + "\n");
+                ConferirSituacao(codigo);
+                if (p.getSituacao() == true) {                    
+                    System.out.println("Digite a porcentagem de lucro (ex: 0,5 | 1,5 | 10)");
+                    double porcentagem = sc.nextDouble();
+                    p.setPorcentagem(porcentagem);
+                    CalcularPrecoVenda(codigo);
 
-                System.out.println("Digite a porcentagem de lucro (ex: 0,5 | 1,5 | 10)");
-                double porcentagem = sc.nextDouble();
-                double proprocao = porcentagem / p.getPrecoCompra();
-                double lucro = p.getPrecoCompra() * proprocao;
-                double venda = p.getPrecoCompra() + lucro;
-                System.out.println("\nEntre com a quantidade que deseja retirar: ");
-                double quantidadeRetirada = sc.nextDouble();
-                if (quantidadeRetirada > 0) {
-                    double quantidade = p.getQuantidade() - quantidadeRetirada;
-
-                    p.setQuantidadeRetirada(quantidadeRetirada);
-                    p.setQuantidade(quantidade);
-                    p.setPrecoVenda(venda);
-                } else {
-                    System.out.println("Quantidade incorreta");
-                    new Erros();
+                    System.out.println("\nEntre com a quantidade que deseja retirar: ");
+                    double quantidadeRetirada = sc.nextDouble();
+                    if (quantidadeRetirada >= 0 && quantidadeRetirada < p.getQuantidade()) {
+                        double quantidade = p.getQuantidade() - quantidadeRetirada;
+    
+                        p.setQuantidadeRetirada(quantidadeRetirada);
+                        p.setQuantidade(quantidade);
+                    } else {
+                        System.out.println("Quantidade incorreta");
+                        new Erros();
+                    }
+                    System.out.println("Deu certo saida do produto");
+                    return p;
+                }else{
+                    System.out.println("Produto inativado devido ao estoque insuficiente");
                 }
-                System.out.println("Deu certo");
+            }
+            else{
+                System.out.println("Produto não encontrado");
+                new Erros().SemErro();
             }
         }
-
+        sc.nextLine();
         return null;
     }
 
-    public Produto Situacao(int codigo) {
+    public Produto ConferirSituacao(int codigo) {
         Scanner sc = new Scanner(System.in);
         for (Produto p : produtos) {
             if (p.getId() == codigo) {
@@ -130,8 +166,18 @@ public class Estoque {
         return null;
     }
 
+    public Produto CalcularPrecoVenda(int codigo ){
+        for(Produto p: produtos){
+            if(p.getId() == codigo){
+                    double proprocao = p.getPorcentagem() / p.getPrecoCompra();
+                    double lucro = p.getPrecoCompra() * proprocao;
+                    double venda = p.getPrecoCompra() + lucro;
+                    p.setPrecoVenda(venda);
+            }
+        }
+        return null;
+    }
+
     public Estoque() {
     }
 }
-/* teste de commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 
-double quantidadeVendida = sc.nextDouble();*/

@@ -4,12 +4,13 @@ public class Produto {
 
     private int id;
     private String name;
+    private boolean situacao;
     private double precoCompra;
     private double precoVenda;
+    private double porcentagem;
     private double quantidade;
     private double quantidadeComprada;
     private double quantidadeRetirada;
-    private boolean situacao;
 
     public void setId(int id) {
         this.id = id;
@@ -41,6 +42,13 @@ public class Produto {
 
     public double getPrecoVenda() {
         return precoVenda;
+    }
+
+    public void setPorcentagem(double porcentagem){
+        this.porcentagem = porcentagem;
+    }
+    public double getPorcentagem(){
+        return porcentagem;
     }
 
     public void setQuantidadeComprada(double quantidadeComprada) {
