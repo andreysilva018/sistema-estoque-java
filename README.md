@@ -104,11 +104,13 @@ git clone https://github.com/andreysilva018/sistema-estoque-java.git
 🚀 Melhorias Planejadas
 
  - Bloqueio automático de produtos com estoque zerado - Feito;
- - Validação para impedir saída maior que a quantidade dispon-ível - Em correção;
+ - Validação para impedir saída maior que a quantidade dispon-ível e menor ou igual a 0 - Feito;
  - Reativação automática de produtos após nova entrada - Feito;
- - Mensagem de aviso quando o estoque de um produto for zerado - Em andamento;
+ - Mensagem de aviso quando o estoque de um produto for zerado - Feito;
  - Melhor separação entre regras de negócio e interação com o usuário - Em espera;
  - Refatoração para padronização de nomes e pacotes - Em espera;
+ - Criação do banco de dados;
+ - Conexão com o banco de dados;
 
 📌 Considerações Finais
 
