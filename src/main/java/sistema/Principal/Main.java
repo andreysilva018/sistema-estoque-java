@@ -38,7 +38,7 @@ public class Main {
                     estoque.Entrada(codigo);
                     break;
                 case 5:
-                    System.out.println("Digite o codigo do produto que deseja dar entrada: ");
+                    System.out.println("Digite o codigo do produto que deseja retirar do estoque: ");
                     codigo = sc.nextInt();
                     estoque.Saida(codigo);
                     break;

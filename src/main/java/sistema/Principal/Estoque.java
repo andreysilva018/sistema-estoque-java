@@ -91,6 +91,10 @@ public class Estoque {
                     if (quantidadeComprada > 0) {
                         double quantidade = p.getQuantidade() + quantidadeComprada;
 
+                        System.out.println("Digite a porcentagem de lucro na venda do produto em cima do preço de compra (ex: 0,5 | 1,5 | 10)");
+                        double porcentagem = sc.nextDouble();
+
+                        p.setPorcentagem(porcentagem);
                         p.setPrecoCompra(precoCompra);
                         p.setQuantidadeComprada(quantidadeComprada);
                         p.setQuantidade(quantidade);
@@ -112,39 +116,45 @@ public class Estoque {
 
     public Produto Saida(int codigo) {
         Scanner sc = new Scanner(System.in);
+        boolean continuar = true;
+
         for (Produto p : produtos) {
             if (p.getId() == codigo) {
-                System.out.print("Descrição do produto: " + p.getName() + "\n");
-                ConferirSituacao(codigo);
-                if (p.getSituacao() == true) {                    
-                    System.out.println("Digite a porcentagem de lucro (ex: 0,5 | 1,5 | 10)");
-                    double porcentagem = sc.nextDouble();
-                    p.setPorcentagem(porcentagem);
-                    CalcularPrecoVenda(codigo);
-
-                    System.out.println("\nEntre com a quantidade que deseja retirar: ");
-                    double quantidadeRetirada = sc.nextDouble();
-                    if (quantidadeRetirada >= 0 && quantidadeRetirada < p.getQuantidade()) {
-                        double quantidade = p.getQuantidade() - quantidadeRetirada;
+                    
+                    System.out.print("Descrição do produto: " + p.getName() + "\n");
+                    ConferirSituacao(codigo);
+                    if (p.getSituacao() == true) {                    
+                        CalcularPrecoVenda(codigo);
     
-                        p.setQuantidadeRetirada(quantidadeRetirada);
-                        p.setQuantidade(quantidade);
-                    } else {
-                        System.out.println("Quantidade incorreta");
-                        new Erros();
+                        System.out.println("\nEntre com a quantidade que deseja retirar: ");
+                        double quantidadeRetirada = sc.nextDouble();
+                        if (quantidadeRetirada > 0 && quantidadeRetirada <= p.getQuantidade()) {
+                            double quantidade = p.getQuantidade() - quantidadeRetirada;
+        
+                            p.setQuantidadeRetirada(quantidadeRetirada);
+                            p.setQuantidade(quantidade);
+
+                            if (p.getQuantidade() == 0) {
+                                System.out.println("** Atenção estoque do produto se encontra zerado **");
+                            }
+                            return p;
+                        } else {
+                            System.out.println("Quantidade incorreta");
+                            new Erros();
+                        }
                     }
-                    System.out.println("Deu certo saida do produto");
-                    return p;
-                }else{
-                    System.out.println("Produto inativado devido ao estoque insuficiente");
-                }
+                    else {
+                        System.out.println("Produto inativado devido ao estoque insuficiente");
+                        continuar = false;
+                    }
+
+                return p;
             }
-            else{
+            else {
                 System.out.println("Produto não encontrado");
                 new Erros().SemErro();
             }
         }
-        sc.nextLine();
         return null;
     }
 
