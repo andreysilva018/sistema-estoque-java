@@ -1,7 +1,11 @@
 package sistema.Principal;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import sistema.Principal.Compras.PedidoCompra;
 
 public class Estoque {
 
@@ -75,42 +79,30 @@ public class Estoque {
         return null;
     }
 
-    public Produto Entrada(int codigo) {
-        Scanner sc = new Scanner(System.in);
-        boolean continuar = true;
+    public Produto Entrada(Scanner sc) {
+        PedidoCompra pedidoCompra = new PedidoCompra();
+
         for (Produto p : produtos) {
-            if (p.getId() == codigo) {
-                while (continuar) {
-                    System.out.print("Descrição do produto: " + p.getName() + "\n");
-
-                    System.out.println("\nEntre com o preço de compra: ");
-                    double precoCompra = sc.nextDouble();
-
-                    System.out.println("Digite a quantidade comprada: ");
-                    double quantidadeComprada = sc.nextDouble();
-                    if (quantidadeComprada > 0) {
-                        double quantidade = p.getQuantidade() + quantidadeComprada;
-
-                        System.out.println("Digite a porcentagem de lucro na venda do produto em cima do preço de compra (ex: 0,5 | 1,5 | 10)");
-                        double porcentagem = sc.nextDouble();
-
-                        p.setPorcentagem(porcentagem);
-                        p.setPrecoCompra(precoCompra);
-                        p.setQuantidadeComprada(quantidadeComprada);
-                        p.setQuantidade(quantidade);
-
-                        System.out.println("Entrada inserida no estoque");
-                        continuar = false;
-                        return p;
-                    } else {
-                        System.out.println("Quantidade incorreta");
-                        new Erros();
-                    }
-                }
-            }
+            System.out.println("Deseja dar a entrada do prdouto no estoque via pedido ou manualmente? ( Via pedido '1' || Manualmente '2' )" );
+            int pergunta = sc.nextInt();
+            switch (pergunta) {
+                case 1:
+                    pedidoCompra.Pedido();
+                    LocalDate data = LocalDate.now();
+                    DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    System.out.println("Data do pedido: " + data.format(formatador));
+                    break;
+                case 2:
+                    System.out.println("Digite o codigo do produto que deseja dar entrada: ");
+                    int codigo = sc.nextInt();
+                    EntradaManualmente(codigo, sc);
+                    break;
+                default:
+                    new Erros();
+                    break;
+            }                
         }
-        System.out.println("Produto não encontrado");
-        new Erros().SemErro();
+        System.out.println("Teste erro no pedido não eá onocoando o metodo de criação de pedido de compra");
         return null;
     }
 
@@ -153,6 +145,7 @@ public class Estoque {
             else {
                 System.out.println("Produto não encontrado");
                 new Erros().SemErro();
+                return null;
             }
         }
         return null;
@@ -189,5 +182,43 @@ public class Estoque {
     }
 
     public Estoque() {
+    }
+
+    public Produto EntradaManualmente(int codigo, Scanner sc){
+        for(Produto p : produtos){
+            if (p.getId() == codigo) {
+                boolean continuar = true;
+                while (continuar) {
+                    System.out.print("Descrição do produto: " + p.getName() + "\n");
+
+                    System.out.println("\nEntre com o preço de compra: ");
+                    double precoCompra = sc.nextDouble();
+
+                    System.out.println("Digite a quantidade comprada: ");
+                    double quantidadeComprada = sc.nextDouble();
+                    if (quantidadeComprada > 0) {
+                        double quantidade = p.getQuantidade() + quantidadeComprada;
+
+                        System.out.println("Digite a porcentagem de lucro na venda do produto em cima do preço de compra (ex: 0,5 | 1,5 | 10)");
+                        double porcentagem = sc.nextDouble();
+
+                        p.setPorcentagem(porcentagem);
+                        p.setPrecoCompra(precoCompra);
+                        p.setQuantidadeComprada(quantidadeComprada);
+                        p.setQuantidade(quantidade);
+
+                        System.out.println("Entrada inserida no estoque");
+                        continuar = false;
+                        return p;
+                    } else {
+                        System.out.println("Quantidade incorreta");
+                        new Erros();
+                    }
+                }
+            }
+        }
+        System.out.println("Produto não encontrado");
+        new Erros().SemErro();
+        return null;
     }
 }
